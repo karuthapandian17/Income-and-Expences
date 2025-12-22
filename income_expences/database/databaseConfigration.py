@@ -35,57 +35,18 @@ def create_database():
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
-
             print("Users table created successfully")
+            
             cursor.execute("""
-                CREATE TABLE IF NOT EXISTS Categories (
+                CREATE TABLE IF NOT EXISTS categories (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    user_id INT NOT NULL,
-                    NAME VARCHAR(100) NOT NULL,
-                    TYPE ENUM('INCOME','EXPENSE') NOT NULL,              
+                    user_id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(100) NOT NULL,
+                    type ENUM('income', 'expense') NOT NULL,              
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users(user_id)
                 )
             """)
             print("Categories table created successfully")
-
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS payments(
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    user_id INT,
-                    name VARCHAR(100),   
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-
-            print("Payments table created successfully")
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS income (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    user_id INT,
-                    category_id INT,
-                    amount DECIMAL(12, 2) NOT NULL,       
-                    payment_method_id INT,
-                    income_date DATE NOT NULL,
-                    note TEXT,             
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            """)    
-
-            print("Income table created successfully")
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS expenses (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    user_id INT,
-                    amount DECIMAL(12, 2) NOT NULL,       
-                    category_id INT,     
-                    payment_method_id INT,
-                    expense_date DATE NOT NULL,
-                    note TEXT,             
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-            print("Expenses table created successfully")
             return connection
     except Error as e:
         print(f"Error: '{e}'")
