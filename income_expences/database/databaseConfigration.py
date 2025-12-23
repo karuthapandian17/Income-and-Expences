@@ -32,7 +32,7 @@ def create_database():
                     fullname VARCHAR(100)  NOT NULL,
                     email VARCHAR(100) UNIQUE  NOT NULL,
                     password_hash TEXT NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
                 )
             """)
             print("Users table created successfully")
@@ -40,10 +40,10 @@ def create_database():
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS categories (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    user_id INT AUTO_INCREMENT PRIMARY KEY,
+                    user_id INT,
                     name VARCHAR(100) NOT NULL,
                     type ENUM('income', 'expense') NOT NULL,              
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
                 )
             """)
             print("Categories table created successfully")
